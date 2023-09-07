@@ -1,0 +1,3 @@
+client:
+  openapi-app:
+    url: http://localhost:45632
