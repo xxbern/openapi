@@ -3,6 +3,7 @@ package com.example.openapiapp.api;
 import com.example.demo.api.BookApi;
 import com.example.demo.api.model.AllBooksResponse;
 import com.example.demo.api.model.Book;
+import com.example.demo.api.model.Empty;
 import com.example.demo.api.model.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class BookApiImpl implements BookApi {
     }
 
     @Override
-    public ResponseEntity<Void> bookSave(Book book) {
+    public ResponseEntity<Empty> saveBook(Book book) {
         bookMap.put(book.getId(), book);
 
         return ResponseEntity.ok().build();

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    Empty:
+      type: object
+      properties:
+        message:
+          type: string
+          default: success
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    Page:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64

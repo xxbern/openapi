@@ -1,0 +1,18 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Book Store
+  license:
+    name: apache
+servers:
+  - url: http://localhost:45632
+    description: 本地测试
+paths:
+  /book/save:
+    $ref: 'book.yml#/saveBook'
+  /book/{id}:
+    $ref: 'book.yml#/getBook'
+  /book/all:
+    $ref: 'book.yml#/allBook'
+  /member/{id}:
+    $ref: 'member.yml#/getMember'

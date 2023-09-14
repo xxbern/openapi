@@ -1,0 +1,53 @@
+getMember:
+  get:
+    operationId: getMember
+    tags:
+      - member
+    summary: Get a Member
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      200:
+        description: get a member info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      404:
+        description: member not exist
+        content:
+          application/json:
+            schema:
+              $ref: 'common.yml#/components/schemas/Error'
+      x-operation-extra-annotation: '@jakarta.annotation.security.RolesAllowed({"MEMBER_VIEW"})'
+components:
+  schemas:
+    Member:
+      type: object
+#      required:
+#        - id
+#        - name
+#        - author
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        age:
+          type: string
+          enum:
+            - male
+            - female
+        author:
+          type: string
+        created:
+          type: string
+          format: date-time
+          description: Book creation date and time
+          example: "2023-01-30T08:30:00Z"

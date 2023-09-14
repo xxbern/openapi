@@ -1,6 +1,7 @@
 package com.example.openapispringclient;
 
-import com.example.demo.client.BookApi;
+import com.example.demo.client.api.BookApi;
+import com.example.demo.client.api.MemberApi;
 import com.example.demo.client.model.Book;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.MethodOrderer;
@@ -29,6 +30,9 @@ class OpenapiSpringClientApplicationTests {
     @Autowired
     BookApi bookApi;
 
+    @Autowired
+    MemberApi memberApi;
+
 
     @Test
     @Order(1)
@@ -54,7 +58,7 @@ class OpenapiSpringClientApplicationTests {
     @Order(3)
     void bookSave() {
         var newBook = new Book().author("xx").created(LocalDateTime.now()).bornDate(LocalDate.now()).id(3L).name("newBook");
-        var book = bookApi.bookSave(newBook);
+        var book = bookApi.saveBook(newBook);
         log.info(book.toString());
     }
 
@@ -63,6 +67,19 @@ class OpenapiSpringClientApplicationTests {
     void getBook() {
         var book = bookApi.getBook(3L);
         log.info(book.toString());
+    }
+
+
+    @Test
+    @Order(5)
+    void getMember() {
+        try {
+            var member = memberApi.getMember(1L);
+        } catch (WebClientResponseException responseException) {
+            log.info(responseException.toString());
+            var responseBodyAsString = responseException.getResponseBodyAsString(Charset.defaultCharset());
+            log.info(responseBodyAsString);
+        }
     }
 
 

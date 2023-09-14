@@ -66,7 +66,7 @@
                         </goals>
                         <configuration>
 <!--                            <inputSpecRootDirectory>api/</inputSpecRootDirectory>-->
-                            <inputSpec>api/book.yml</inputSpec>
+                            <inputSpec>api/openapi.yml</inputSpec>
                             <generatorName>spring</generatorName>
                             <output>${project.build.directory}/generated-sources</output>
                             <configOptions>

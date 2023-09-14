@@ -1,2 +1,9 @@
 server:
   port: 45632
+
+
+logging:
+  level:
+#    root: trace
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: trace
+    org.springframework.web.servlet.DispatcherServlet: trace

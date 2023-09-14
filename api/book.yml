@@ -1,95 +1,81 @@
-openapi: 3.0.2
-info:
-  version: 1.0.0
-  title: Book Store
-  license:
-    name: apache
-servers:
-  - url: http://localhost:12345
-    description: 本地测试
-paths:
-  /book/save:
-    post:
-      operationId: bookSave
-      tags:
-        - book
-      summary: Create a new Book
-      requestBody:
-        description:  create book request body
+allBook:
+  get:
+    operationId: allBook
+    tags:
+      - book
+    summary: Get All Books
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              title: all books response
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Book'
+                page:
+                  $ref: 'common.yml#/components/schemas/Page'
+      404:
+        description: Book not found
+        content: { }
+getBook:
+  get:
+    operationId: getBook
+    tags:
+      - book
+    summary: Get a Book
+    parameters:
+      - name: id
+        in: path
         required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      200:
+        description: 获取一本书
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Book'
-      responses:
-        200:
-          description: successful operation
-        201:
-          description: Created
-      x-operation-extra-annotation: '@jakarta.annotation.security.RolesAllowed({"ROLE_TEST"})'
-  /book/{id}:
-    get:
-      operationId: getBook
-      tags:
-        - book
-      summary: Get a Book
-      parameters:
-        - name: id
-          in: path
-          required: true
+      404:
+        description: 书不存在
+        content:
+          application/json:
+            schema:
+              $ref: 'common.yml#/components/schemas/Error'
+saveBook:
+  post:
+    operationId: saveBook
+    tags:
+      - book
+    summary: Create a new Book
+    requestBody:
+      description: create book request body
+      required: true
+      content:
+        application/json:
           schema:
-            type: integer
-            format: int64
-      responses:
-        200:
-          description: 获取一本书
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Book'
-        404:
-          description: 书不存在
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /book/all:
-    get:
-      operationId: allBook
-      tags:
-        - book
-      summary: Get All Books
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                title: all books response
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Book'
-                  page:
-                    $ref: '#/components/schemas/Page'
-        404:
-          description: Book not found
-          content: { }
+            $ref: '#/components/schemas/Book'
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'common.yml#/components/schemas/Empty'
+      201:
+        description: Created
+    x-operation-extra-annotation: '@jakarta.annotation.security.RolesAllowed({"BOOK_MANAGE"})'
+
+
+
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-    Page:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
     Book:
       type: object
       required:
@@ -114,3 +100,4 @@ components:
           format: date-time
           description: Book creation date and time
           example: "2023-01-30T08:30:00Z"
+

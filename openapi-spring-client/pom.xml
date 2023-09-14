@@ -14,6 +14,7 @@
     <version>${revision}</version>
     <name>openapi-spring-client</name>
     <description>openapi-spring-client</description>
+    <packaging>jar</packaging>
 
 
     <dependencies>
@@ -69,7 +70,7 @@
                         </goals>
                         <configuration>
                             <!--                            <inputSpecRootDirectory>api/</inputSpecRootDirectory>-->
-                            <inputSpec>api/book.yml</inputSpec>
+                            <inputSpec>api/openapi.yml</inputSpec>
                             <generatorName>spring</generatorName>
                             <output>${project.build.directory}/generated-sources</output>
                             <configOptions>
@@ -84,18 +85,19 @@
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                                 <library>spring-http-interface</library>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                                <useSpringController>true</useSpringController>
+<!--                                <useSpringController>true</useSpringController>-->
                                 <useLombok>true</useLombok>
                                 <!-- <additionalModelTypeAnnotations>@lombok.Data
                                     @lombok.NoArgsConstructor
                                     @lombok.AllArgsConstructor</additionalModelTypeAnnotations> -->
+                                <useTags>true</useTags>
+                                <serviceInterface>true</serviceInterface>
                             </configOptions>
                             <generateApis>true</generateApis>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <generateApiDocumentation>false</generateApiDocumentation>
                             <modelPackage>com.example.demo.client.model</modelPackage>
-                            <apiPackage>com.example.demo.client</apiPackage>
-
+                            <apiPackage>com.example.demo.client.api</apiPackage>
                             <typeMappings>
                                 <!-- convert Double to BigDecimal -->
                                 <typeMapping>date=java.time.LocalDate</typeMapping>
